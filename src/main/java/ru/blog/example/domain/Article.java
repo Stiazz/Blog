@@ -53,6 +53,14 @@ public class Article {
         return simpleDateFormat.format(dateCreate);
     }
 
+    public Integer getId () {
+        return id;
+    }
+
+    public void setId (Integer id) {
+        this.id = id;
+    }
+
     public void setDateCreate (Date dateCreate) {
         this.dateCreate = dateCreate;
     }
