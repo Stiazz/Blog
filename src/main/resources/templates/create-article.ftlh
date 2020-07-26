@@ -2,6 +2,7 @@
 <#import "parts/login.ftlh" as l>
 <@g.main>
     <@l.logout/>
+    <span><a href="/user">Список пользователей</a></span>
 
     <form method="post" action="/create-article/add">
         <input type="hidden" name="_csrf" value="${_csrf.token}">

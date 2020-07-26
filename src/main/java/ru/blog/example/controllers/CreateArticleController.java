@@ -16,19 +16,19 @@ import ru.blog.example.domain.UserAccount;
 import ru.blog.example.repos.ArticleRepo;
 
 @Controller
-@RequestMapping (path="/create-article")
+@RequestMapping (path = "/create-article")
 public class CreateArticleController {
     private final ArticleRepo articleRepo;
 
     public CreateArticleController (ArticleRepo articleRepo) {this.articleRepo = articleRepo;}
 
     @GetMapping
-    public String index (@RequestParam(required = false) String tag,  Model model) {
+    public String index (@RequestParam (required = false) String tag, Model model) {
         Iterable< Article > articles;
 
         if (tag != null && !tag.isEmpty ()) {
             articles = articleRepo.findByTag (tag);
-        }else{
+        } else {
             articles = articleRepo.findAll ();
         }
 
@@ -37,14 +37,13 @@ public class CreateArticleController {
         return "/create-article";
     }
 
-    @PostMapping(path = "/add")
-    public String add(
+    @PostMapping (path = "/add")
+    public String add (
             @RequestParam String title,
             @AuthenticationPrincipal UserAccount author,
             @RequestParam String context,
-            @RequestParam String tag ,
-            Map< String, Object > model)
-    {
+            @RequestParam String tag
+    ) {
         /* Правильно ли? */
         Article article = new Article (title, new Date (), context, author, tag);
         articleRepo.save (article);

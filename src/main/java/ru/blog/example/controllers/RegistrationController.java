@@ -1,6 +1,7 @@
 package ru.blog.example.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,16 +21,16 @@ public class RegistrationController {
     public RegistrationController (UserAccountRepo userAccountRepo) {this.userAccountRepo = userAccountRepo;}
 
     @GetMapping
-    public String index (Map< String, Object > model) {
+    public String index () {
         return "registration";
     }
 
     @PostMapping
-    public String registration (UserAccount user, Map<String, Object> model) {
+    public String registration (UserAccount user, Model model) {
         UserAccount userFromDB = userAccountRepo.findByUsername (user.getUsername ());
 
         if (userFromDB != null){
-            model.put ("message", "Такой пользователь уже существует");
+            model.addAttribute ("message", "Такой пользователь уже существует");
             return "registration";
         }
 
