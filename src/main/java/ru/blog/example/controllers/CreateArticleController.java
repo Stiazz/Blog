@@ -1,8 +1,8 @@
 package ru.blog.example.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,17 +16,25 @@ import ru.blog.example.domain.UserAccount;
 import ru.blog.example.repos.ArticleRepo;
 
 @Controller
-@RequestMapping (path="/admin")
-public class AdminController {
+@RequestMapping (path="/create-article")
+public class CreateArticleController {
     private final ArticleRepo articleRepo;
 
-    public AdminController (ArticleRepo articleRepo) {this.articleRepo = articleRepo;}
+    public CreateArticleController (ArticleRepo articleRepo) {this.articleRepo = articleRepo;}
 
     @GetMapping
-    public String index (Map< String, Object > model) {
+    public String index (@RequestParam(required = false) String filter,  Model model) {
         Iterable< Article > articles = articleRepo.findAll ();
-        model.put ("articles", articles);
-        return "admin";
+
+        if (filter != null && !filter.isEmpty ()) {
+            articles = articleRepo.findByTag (filter);
+        }else{
+            articles = articleRepo.findAll ();
+        }
+
+        model.addAttribute ("articles", articles);
+        model.addAttribute ("filter", filter);
+        return "/create-article";
     }
 
     @PostMapping(path = "/add")
@@ -41,19 +49,6 @@ public class AdminController {
         Article article = new Article (title, new Date (), context, author, tag);
         articleRepo.save (article);
 
-        return "redirect:/admin";
+        return "redirect:/create-article";
     }
-
-    @PostMapping(path = "/filter")
-    public String find (@RequestParam String tag, Map< String, Object > model) {
-        Iterable< Article > articles;
-        if (tag != null && !tag.isEmpty ()) {
-            articles = articleRepo.findByTag (tag);
-        }else{
-            articles = articleRepo.findAll ();
-        }
-        model.put ("articles", articles);
-        return "admin";
-    }
-
 }
