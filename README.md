@@ -1,3 +1,3 @@
 # Blog
 
-Spring MVC + PostgreSQL + Mustache
+Spring MVC + PostgreSQL + Freemarker
