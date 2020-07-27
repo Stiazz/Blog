@@ -15,19 +15,19 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Article {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private Integer id;
-    /* Заголовок */
+
     private String title;
-    /* Дата создания */
+
     private Date dateCreate;
-    /* Содержимое */
+
     private String context;
-    /* Автор */
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+
+    @ManyToOne (fetch = FetchType.EAGER)
+    @JoinColumn (name = "user_id")
     private UserAccount author;
-    /* Тэг */
+
     private String tag;
 
     public Article () {
@@ -42,15 +42,18 @@ public class Article {
         this.tag = tag;
     }
 
-    public String getAuthorName(){
+    /* Get/Set Begin */
+
+    public String getAuthorName () {
         return author != null ? author.getUsername () : "<none>";
     }
+
     /* Нужно додумать */
     public String getDateCreate () {
         String pattern = "dd-MM-yyyy HH:mm";
         Locale locale = new Locale ("ru", "RU");
-        SimpleDateFormat simpleDateFormat =new SimpleDateFormat (pattern, locale);
-        return simpleDateFormat.format(dateCreate);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat (pattern, locale);
+        return simpleDateFormat.format (dateCreate);
     }
 
     public Integer getId () {
@@ -97,4 +100,5 @@ public class Article {
         this.tag = tag;
     }
 
+    /* Get/Set End */
 }
