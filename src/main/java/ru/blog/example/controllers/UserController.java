@@ -22,7 +22,7 @@ import ru.blog.example.repos.UserAccountRepo;
 
 @Controller
 @RequestMapping(path = "/user")
-@PreAuthorize ("hasAuthority('ADMIN')")
+@PreAuthorize ("hasAuthority('USER')")
 public class UserController {
     private final UserAccountRepo userAccountRepo;
 

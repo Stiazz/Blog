@@ -3,6 +3,7 @@
 <@g.main>
     <@l.logout/>
     <span><a href="/user">Список пользователей</a></span>
+    <span><a href="/profile">Профиль</a></span>
 
     <form method="post" action="/create-article/add">
         <input type="hidden" name="_csrf" value="${_csrf.token}">
@@ -24,7 +25,7 @@
     </#list>
 
     <form method="get" action="/create-article">
-        <input type="text" name="tag" placeholder="Поиск по тэгу">
+        <input type="text" name="tag" placeholder="Поиск по тэгу" value="${filter!}">
         <button type="submit">Поиск</button>
     </form>
 </@g.main>

@@ -17,8 +17,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 
-@Entity // This tells Hibernate to make a table out of this class
+@Entity
 public class UserAccount implements UserDetails {
+
+
     @Id
     @GeneratedValue (strategy= GenerationType.AUTO)
     private Integer id;
@@ -36,17 +38,10 @@ public class UserAccount implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    public Integer getId () {
-        return id;
-    }
+    private String fileNameIcon;
 
-    public void setId (Integer id) {
-        this.id = id;
-    }
 
-    public String getUsername () {
-        return username;
-    }
+    /* Spring Security Begin*/
 
     @Override
     public boolean isAccountNonExpired () {
@@ -70,7 +65,23 @@ public class UserAccount implements UserDetails {
 
     @Override
     public Collection< ? extends GrantedAuthority > getAuthorities () {
-        return null;
+        return getRoles ();
+    }
+
+    /* Spring Security End*/
+
+    /* Get/Set Begin */
+
+    public Integer getId () {
+        return id;
+    }
+
+    public void setId (Integer id) {
+        this.id = id;
+    }
+
+    public String getUsername () {
+        return username;
     }
 
     public void setUsername (String username) {
@@ -86,7 +97,9 @@ public class UserAccount implements UserDetails {
     }
 
     public String getEmail () {
+        if (email !=null && !email.isEmpty ())
         return email;
+        else return "Не задан";
     }
 
     public void setEmail (String email) {
@@ -108,4 +121,15 @@ public class UserAccount implements UserDetails {
     public void setRoles (Set< Role > roles) {
         this.roles = roles;
     }
+
+    public String getFileNameIcon () {
+        return fileNameIcon;
+    }
+
+    public void setFileNameIcon (String fileNameIcon) {
+        this.fileNameIcon = fileNameIcon;
+    }
+
+    /* Get/Set End */
+
 }

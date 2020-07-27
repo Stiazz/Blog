@@ -3,7 +3,7 @@
 
 <@g.main>
     <h1>Регистрация</h1>
-    ${message}
+    ${message!}
     <@l.login "/registration" "Регистрация"/>
     </body>
 </@g.main>

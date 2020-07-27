@@ -23,17 +23,17 @@ public class CreateArticleController {
     public CreateArticleController (ArticleRepo articleRepo) {this.articleRepo = articleRepo;}
 
     @GetMapping
-    public String index (@RequestParam (required = false) String tag, Model model) {
+    public String index (@RequestParam (required = false, defaultValue = "") String filter, Model model) {
         Iterable< Article > articles;
 
-        if (tag != null && !tag.isEmpty ()) {
-            articles = articleRepo.findByTag (tag);
+        if (filter != null && !filter.isEmpty ()) {
+            articles = articleRepo.findByTag (filter);
         } else {
             articles = articleRepo.findAll ();
         }
 
         model.addAttribute ("articles", articles);
-        model.addAttribute ("filter", articles);
+        model.addAttribute ("filter", filter);
         return "/create-article";
     }
 
