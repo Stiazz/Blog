@@ -1,3 +1,4 @@
-# Blog
+# Blog (отложено)
 
-Spring MVC + PostgreSQL + Freemarker
+Spring Boot + PostgreSQL + Freemarker
+
